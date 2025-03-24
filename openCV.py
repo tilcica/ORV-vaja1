@@ -32,7 +32,9 @@ def obdelaj_sliko_s_skatlami(slika, sirina_skatle, visina_skatle, barva_koze):
     return subBoxes
 
 def prestej_piksle_z_barvo_koze(slika, barva_koze):
-    pass
+    spodnjaMeja, zgornjaMeja = barva_koze
+    mask = cv2.inRange(slika, spodnjaMeja, zgornjaMeja)
+    return cv2.countNonZero(mask)
 
 def main():
     cap = cv2.VideoCapture(0)
