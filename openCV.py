@@ -10,7 +10,8 @@ def doloci_barvo_koze(slika, spodnjaMeja = np.array([0, 0, 0]), zgornjaMeja = np
     pass
 
 def zmanjsaj_sliko(slika,sirina,visina):
-    pass
+    pomanjsana_slika = cv2.resize(slika, (sirina, visina))
+    return cv2.flip(pomanjsana_slika, 1)
 
 def obdelaj_sliko_s_skatlami(slika, sirina_skatle, visina_skatle, barva_koze):
     pass
