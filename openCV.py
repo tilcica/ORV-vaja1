@@ -21,10 +21,20 @@ def zmanjsaj_sliko(slika,sirina,visina):
     return cv2.flip(pomanjsana_slika, 1)
 
 def obdelaj_sliko_s_skatlami(slika, sirina_skatle, visina_skatle, barva_koze):
-    pass
+    subBoxes = []
+    for i in range(0, slika.shape[0], visina_skatle):
+        for j in range(0, slika.shape[1], sirina_skatle):
+            topLeft = (j, i)
+            bottomRight = (j + sirina_skatle, i + visina_skatle)
+            numOfSkinPixels = prestej_piksle_z_barvo_koze((slika[topLeft[1]:bottomRight[1], topLeft[0]:bottomRight[0]]),barva_koze)
+            subBoxes.append((topLeft, bottomRight, numOfSkinPixels))
+
+    return subBoxes
 
 def prestej_piksle_z_barvo_koze(slika, barva_koze):
-    pass
+    spodnjaMeja, zgornjaMeja = barva_koze
+    mask = cv2.inRange(slika, spodnjaMeja, zgornjaMeja)
+    return cv2.countNonZero(mask)
 
 def main():
     cap = cv2.VideoCapture(0)
