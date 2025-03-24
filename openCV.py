@@ -7,7 +7,14 @@ colorCloseness = 0.05
 numOfRequiredSkinPixels = 5
 
 def doloci_barvo_koze(slika, spodnjaMeja = np.array([0, 0, 0]), zgornjaMeja = np.array([0, 0, 0])):
-    pass
+    def mouse_callback(event, x, y, flags, param):
+        if event == cv2.EVENT_LBUTTONDOWN:
+            color = slika[y, x]
+            spodnjaMeja[:] = np.clip(color - color * colorCloseness, 0, 255)
+            zgornjaMeja[:] = np.clip(color + color * colorCloseness, 0, 255)
+
+    cv2.setMouseCallback("ORV vaja 1", mouse_callback)
+    return (spodnjaMeja,zgornjaMeja)
 
 def zmanjsaj_sliko(slika,sirina,visina):
     pomanjsana_slika = cv2.resize(slika, (sirina, visina))
